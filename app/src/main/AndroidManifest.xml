@@ -26,6 +26,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.ualberta.slevinsk.gameshow.MainActivity" />
         </activity>
+        <activity
+            android:name=".ReactionTimerActivity"
+            android:label="@string/title_activity_reaction_timer"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.ualberta.slevinsk.gameshow.MainActivity" />
+        </activity>
+        <activity
+            android:name=".GameshowBuzzerActivity"
+            android:label="@string/title_activity_gameshow_buzzer"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.ualberta.slevinsk.gameshow.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

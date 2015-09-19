@@ -9,10 +9,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="Hello World!" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,4 +19,23 @@
         android:layout_marginBottom="112dp"
         android:onClick="onStatsButtonSelected"
         android:nestedScrollingEnabled="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reaction Timer"
+        android:id="@+id/reactionTimerButton"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onReactionTimerButtonSelected" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gameshow Buzzer"
+        android:id="@+id/gameshowBuzzerButton"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/reactionTimerButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="onGameshowBuzzerSelected" />
 </RelativeLayout>
