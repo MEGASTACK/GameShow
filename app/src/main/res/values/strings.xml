@@ -10,4 +10,5 @@
     <string name="stats">Stats</string>
     <string name="reactionTimer">Reaction Timer</string>
     <string name="gameshowBuzzer">Gameshow Buzzer</string>
+    <string name="reactionTimerButtonText">Wait for it...</string>
 </resources>
