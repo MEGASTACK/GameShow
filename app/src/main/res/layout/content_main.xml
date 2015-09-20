@@ -12,18 +12,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stats"
+        android:text="@string/stats"
         android:id="@+id/statsButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="112dp"
-        android:onClick="onStatsButtonSelected"
-        android:nestedScrollingEnabled="false" />
+        android:onClick="onStatsButtonSelected"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reaction Timer"
+        android:text="@string/reactionTimer"
         android:id="@+id/reactionTimerButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -32,7 +31,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gameshow Buzzer"
+        android:text="@string/gameshowBuzzer"
         android:id="@+id/gameshowBuzzerButton"
         android:layout_marginTop="46dp"
         android:layout_below="@+id/reactionTimerButton"

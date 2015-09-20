@@ -57,4 +57,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, StatsActivity.class);
         startActivity(intent);
     }
+
+    public void onReactionTimerButtonSelected(View view) {
+        Intent intent = new Intent(this, ReactionTimerActivity.class);
+        startActivity(intent);
+    }
+
+    public void onGameshowBuzzerSelected(View view) {
+        Intent intent = new Intent(this, GameshowBuzzerActivity.class);
+        startActivity(intent);
+    }
 }

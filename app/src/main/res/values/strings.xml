@@ -7,4 +7,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_reaction_timer">ReactionTimerActivity</string>
     <string name="title_activity_gameshow_buzzer">GameshowBuzzerActivity</string>
+    <string name="stats">Stats</string>
+    <string name="reactionTimer">Reaction Timer</string>
+    <string name="gameshowBuzzer">Gameshow Buzzer</string>
 </resources>
