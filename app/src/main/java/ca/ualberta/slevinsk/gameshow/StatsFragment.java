@@ -1,7 +1,5 @@
 package ca.ualberta.slevinsk.gameshow;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,12 +11,12 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ReactionTimeFragment.OnFragmentInteractionListener} interface
+ * {@link StatsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ReactionTimeFragment#newInstance} factory method to
+ * Use the {@link StatsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReactionTimeFragment extends Fragment {
+public class StatsFragment extends Fragment {
 
     private static final String ARG_PAGE = "ARG_PAGE";
     private int mPage;
@@ -26,15 +24,15 @@ public class ReactionTimeFragment extends Fragment {
 //    private OnFragmentInteractionListener mListener;
 
 
-    public static ReactionTimeFragment newInstance(Integer page) {
-        ReactionTimeFragment fragment = new ReactionTimeFragment();
+    public static StatsFragment newInstance(Integer page) {
+        StatsFragment fragment = new StatsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public ReactionTimeFragment() {
+    public StatsFragment() {
         // Required empty public constructor
     }
 
@@ -50,7 +48,7 @@ public class ReactionTimeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_reaction_time, container, false);
+        View view =  inflater.inflate(R.layout.fragment_stats, container, false);
         TextView textView = (TextView) view;
         textView.setText("Fragment #" + mPage);
         return view;

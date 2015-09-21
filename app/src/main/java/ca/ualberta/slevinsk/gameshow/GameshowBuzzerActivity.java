@@ -27,14 +27,6 @@ public class GameshowBuzzerActivity extends AppCompatActivity {
         n.show(getSupportFragmentManager(), "numberPicker");
     }
 
-    public static class NumberPickerFragment extends DialogFragment {
 
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return super.onCreateDialog(savedInstanceState);
-
-
-        }
-    }
 
 }
