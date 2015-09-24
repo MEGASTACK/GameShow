@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Created by john on 15-09-19.
  */
-public class ReactionTimer {
+public class ReactionTimer implements Comparable<ReactionTimer> {
     private Date startDate;
     private Date endDate;
     private Long targetTime;
@@ -70,8 +70,19 @@ public class ReactionTimer {
         return Math.max(getEndDate().getTime() - getStartDate().getTime(), 0);
     }
 
+    /**
+     *
+     * @return the amount of time that has passed after the target
+     */
     public Long targetDelta() {
         return getElapsedTime() - getTargetTime();
     }
+
+
+    @Override
+    public int compareTo(ReactionTimer another) {
+        return targetDelta().compareTo(another.targetDelta());
+    }
+
 
 }
