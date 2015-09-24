@@ -2,24 +2,13 @@ package ca.ualberta.slevinsk.gameshow;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by john on 15-09-24.
  */
-public class ReactionTimersModel {
-    ArrayList<ReactionTimer> timers;
-
-    public ArrayList<ReactionTimer> getTimers(){
-        return timers;
-    }
-
-    public void add(ReactionTimer timer){
-        timers.add(timer);
-    }
-
+public class ReactionTimersModel extends GenericModel<ReactionTimer> {
     /**
      * Compute average of last n times
      * @param n number of instances to consider, or -1 for all
@@ -64,7 +53,6 @@ public class ReactionTimersModel {
         return max(getTimers().size());
     }
 
-
     public Long min(Integer n){
         return Collections.min(slice(n)).targetDelta();
     }
@@ -74,5 +62,4 @@ public class ReactionTimersModel {
         Collections.sort(l);
         return l.get(n/2).targetDelta();
     }
-
 }
