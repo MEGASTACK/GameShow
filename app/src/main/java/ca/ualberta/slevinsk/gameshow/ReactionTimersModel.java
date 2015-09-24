@@ -9,6 +9,11 @@ import java.util.List;
  * Created by john on 15-09-24.
  */
 public class ReactionTimersModel extends GenericModel<ReactionTimer> {
+
+    public ReactionTimersModel(String filename) {
+        super(filename);
+    }
+
     /**
      * Compute average of last n times
      * @param n number of instances to consider, or -1 for all
@@ -42,7 +47,7 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
 
     @NonNull
     private List<ReactionTimer> slice(Integer n) {
-        return getTimers().subList(getTimers().size() - n, getTimers().size());
+        return getModelData().subList(getModelData().size() - n, getModelData().size());
     }
 
     /**
@@ -50,7 +55,7 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
      * @return
      */
     public Long max(){
-        return max(getTimers().size());
+        return max(getModelData().size());
     }
 
     public Long min(Integer n){
