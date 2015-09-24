@@ -1,5 +1,6 @@
 package ca.ualberta.slevinsk.gameshow;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.Collections;
@@ -10,8 +11,8 @@ import java.util.List;
  */
 public class ReactionTimersModel extends GenericModel<ReactionTimer> {
 
-    public ReactionTimersModel(String filename) {
-        super(filename);
+    public ReactionTimersModel(Context ctx, String filename) {
+        super(ctx, filename);
     }
 
     /**

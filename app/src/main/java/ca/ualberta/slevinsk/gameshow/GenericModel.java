@@ -1,14 +1,19 @@
 package ca.ualberta.slevinsk.gameshow;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -18,14 +23,20 @@ import java.util.ArrayList;
 public class GenericModel<T> {
     ArrayList<T> modelData;
 
-    public String filename;
+    private String filename;
+    private Context context;
 
-    public void setFilename(String filename) {
+    private void setContext(Context ctx){
+        this.context = ctx;
+    }
+
+    private void setFilename(String filename) {
         this.filename = filename;
     }
 
-    public GenericModel(String filename){
+    public GenericModel(Context context, String filename){
         setFilename(filename);
+        setContext(context);
         loadFromFile();
     }
 
@@ -52,9 +63,12 @@ public class GenericModel<T> {
     public void saveToFile() {
         Gson gson = new Gson();
         try {
-            FileWriter f = new FileWriter(getFilename());
-            BufferedWriter w = new BufferedWriter(f);
-            gson.toJson(getModelData(), w);
+            FileOutputStream f = context.openFileOutput(getFilename(), Context.MODE_PRIVATE);
+            OutputStreamWriter w = new OutputStreamWriter(f);
+
+            gson.toJson(getModelData(),w);
+            w.flush();
+            f.close();
 
         } catch (IOException e) {
             e.printStackTrace();
