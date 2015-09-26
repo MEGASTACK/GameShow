@@ -1,17 +1,27 @@
 package ca.ualberta.slevinsk.gameshow;
 
+import android.database.DataSetObserver;
+import android.media.ImageReader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -49,20 +59,65 @@ public class StatsFragment extends ListFragment {
             mPage = getArguments().getInt(ARG_PAGE);
         }
 
-        ReactionTimersModel r = new ReactionTimersModel(getContext(), "rt.file");
 
-        ;
 
+    }
+
+
+    public List<String> generateStatsData(ReactionTimersModel r, Integer n){
         List<String> test = new ArrayList<>();
-        test.add(String.format("Max time: %d", r.max(10)));
-        test.add(String.format("Min time: %d", r.min(10)));
-        test.add(String.format("Average time: %d", r.average(10)));
-        test.add(String.format("Median time: %d", r.median(10)));
+        test.add(String.format("Max time: %d", r.max(n)));
+        test.add(String.format("Min time: %d", r.min(n)));
+        test.add(String.format("Average time: %d", r.average(n)));
+        test.add(String.format("Median time: %d", r.median(n)));
+        return test;
+    }
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.list_item, test);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final ReactionTimersModel r = new ReactionTimersModel(getContext(), "rt.file");
+
+
+
+
+        final List<String> test = generateStatsData(r,10);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, test);
         setListAdapter(adapter);
 
+        final Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
+
+
+        ArrayList<SpecialPair<String, Integer>> test2 = new ArrayList<>();
+        test2.add(new SpecialPair<String, Integer>("Last 10", 10));
+        test2.add(new SpecialPair<String, Integer>("Last 100", 100));
+        test2.add(new SpecialPair<String, Integer>("All", -1));
+        ArrayAdapter<SpecialPair<String, Integer>> adapter2 = new ArrayAdapter<>(getContext(), R.layout.list_item, test2);
+
+
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Pair<String, Integer> selected = (Pair<String, Integer>) spinner.getItemAtPosition(position);
+
+                Toast.makeText(getContext(), String.format("You selected %s", selected), Toast.LENGTH_SHORT).show();
+                test.clear();
+                test.addAll(generateStatsData(r, selected.second));
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        spinner.setAdapter(adapter2);
+        spinner.setOnItemSelectedListener(listener);
 
     }
 
@@ -71,8 +126,6 @@ public class StatsFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_stats, container, false);
-        ListView listView = (ListView) view;
-//        listView.setText("Fragment #" + mPage);
         return view;
     }
 

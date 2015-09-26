@@ -31,10 +31,11 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
      */
     public long average(Integer n){
         Long sum = 0L;
-        for (ReactionTimer t: slice(n)){
+        List<ReactionTimer> l = slice(n);
+        for (ReactionTimer t: l){
             sum += t.targetDelta();
         }
-        return sum / n;
+        return sum / l.size();
     }
 
     /**
@@ -57,7 +58,13 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
 
     @NonNull
     private List<ReactionTimer> slice(Integer n) {
-        return getModelData().subList(Math.max(getModelData().size() - n - 1, 0), getModelData().size() - 1);
+
+        if (n < 0) {
+            return getModelData();
+        } else {
+            List<ReactionTimer> r =  getModelData().subList(Math.max(getModelData().size() - n, 0), getModelData().size());
+            return r;
+        }
     }
 
     /**
@@ -74,8 +81,9 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
 
     public Long median(Integer n){
         List<ReactionTimer> l = slice(n);
+        Integer realLength = l.size();
         Collections.sort(l);
-        return l.get(n/2).targetDelta();
+        return l.get(realLength/2).targetDelta();
     }
 
     protected void loadFromFile() {
