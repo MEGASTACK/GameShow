@@ -62,6 +62,7 @@ public class NumberPickerFragment extends DialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setCancelable(false);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -96,6 +97,12 @@ public class NumberPickerFragment extends DialogFragment {
         numberPicker.setMinValue(2);
         numberPicker.setMaxValue(4);
         builder.setView(numberPicker);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
 
         return builder.create();
     }
