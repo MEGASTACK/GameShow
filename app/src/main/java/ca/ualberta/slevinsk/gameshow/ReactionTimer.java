@@ -7,26 +7,26 @@ import java.util.Random;
  * Created by john on 15-09-19.
  */
 public class ReactionTimer implements Comparable<ReactionTimer> {
-    private Date startDate;
-    private Date endDate;
+    private Long startDate;
+    private Long endDate;
     private Long targetTime;
 
     private final Integer minTargetMillis = 10;
     private final Integer maxTargetMillis = 2000;
 
-    public Date getStartDate() {
+    public Long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Long startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Long endDate) {
         this.endDate = endDate;
     }
 
@@ -46,20 +46,20 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
     }
 
     public ReactionTimer(){
-        Date now = new Date();
+        Long now = new Date().getTime();
         setStartDate(now);
         setEndDate(now);
         randomizeTargetTime();
     }
 
     public Long start(){
-        setStartDate(new Date());
-        return getStartDate().getTime();
+        setStartDate(new Date().getTime());
+        return getStartDate();
     }
 
     public Long stop(){
-        setEndDate(new Date());
-        return getEndDate().getTime();
+        setEndDate(new Date().getTime());
+        return getEndDate();
     }
 
     /**
@@ -67,7 +67,7 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
      * @return the amount of time that has passed, in milliseconds
      */
     public Long getElapsedTime(){
-        return Math.max(getEndDate().getTime() - getStartDate().getTime(), 0);
+        return Math.max(getEndDate() - getStartDate(), 0);
     }
 
     /**

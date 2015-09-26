@@ -24,6 +24,11 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
         super(ctx, filename);
     }
 
+    @Override
+    public Type getTypeToken() {
+        return new TypeToken<ArrayList<ReactionTimer>>() {}.getType();
+    }
+
     /**
      * Compute average of last n times
      * @param n number of instances to consider, or -1 for all
@@ -39,14 +44,6 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
     }
 
     /**
-     * Compute average of all reaction times
-     * @return the average reaction time
-     */
-    public long average(){
-        return average(-1);
-    }
-
-    /**
      * Compute the maximum of the last n reaction times
      * @param n number of instances to consider, or -1 for all
      * @return the average reaction time
@@ -56,56 +53,42 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
         return Collections.max(slice(n)).targetDelta();
     }
 
-    @NonNull
-    private List<ReactionTimer> slice(Integer n) {
-
-        if (n < 0) {
-            return getModelData();
-        } else {
-            List<ReactionTimer> r =  getModelData().subList(Math.max(getModelData().size() - n, 0), getModelData().size());
-            return r;
-        }
-    }
-
     /**
-     * Compute the maximum of all reaction times
-     * @return
+     * Compute the minimum of the last n reaction times
+     * @param n number of instances to consider, or -1 for all
+     * @return the average reaction time
      */
-    public Long max(){
-        return max(getModelData().size());
-    }
-
     public Long min(Integer n){
         return Collections.min(slice(n)).targetDelta();
     }
 
+
+    /**
+     * Compute the median of the last n reaction times
+     * @param n number of instances to consider, or -1 for all
+     * @return the average reaction time
+     */
     public Long median(Integer n){
         List<ReactionTimer> l = slice(n);
         Integer realLength = l.size();
         Collections.sort(l);
-        return l.get(realLength/2).targetDelta();
+        return l.get(realLength / 2).targetDelta();
     }
 
-    protected void loadFromFile() {
-        FileInputStream f = null;
-        Gson gson = new Gson();
-
-        Type ta = new TypeToken<ArrayList<ReactionTimer>>() {}.getType();
-        try {
-//            f = new FileReader(getFilename());
-
-            f = getContext().openFileInput(getFilename());
-            InputStreamReader is = new InputStreamReader(f);
-
-//            BufferedReader r = new BufferedReader(f);
-            modelData = gson.fromJson(is, ta);
-            is.close();
-
-
-        } catch (FileNotFoundException e) {
-            modelData = new ArrayList<ReactionTimer>();
-        } catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Creates a new list containing the last n timer entries.
+     * @param n How many items to choose, or -1 for all
+     * @return a new List containing the slice.
+     */
+    @NonNull
+    private List<ReactionTimer> slice(Integer n) {
+        if (n < 0) {
+            return new ArrayList<>(getModelData());
+        } else {
+            List<ReactionTimer> r =  getModelData().subList(Math.max(getModelData().size() - n, 0), getModelData().size());
+            return new ArrayList<>(r);
         }
     }
+
+
 }
