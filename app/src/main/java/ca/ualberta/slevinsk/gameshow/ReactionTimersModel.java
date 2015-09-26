@@ -3,6 +3,15 @@ package ca.ualberta.slevinsk.gameshow;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,7 +57,7 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
 
     @NonNull
     private List<ReactionTimer> slice(Integer n) {
-        return getModelData().subList(getModelData().size() - n, getModelData().size());
+        return getModelData().subList(Math.max(getModelData().size() - n - 1, 0), getModelData().size() - 1);
     }
 
     /**
@@ -67,5 +76,28 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
         List<ReactionTimer> l = slice(n);
         Collections.sort(l);
         return l.get(n/2).targetDelta();
+    }
+
+    protected void loadFromFile() {
+        FileInputStream f = null;
+        Gson gson = new Gson();
+
+        Type ta = new TypeToken<ArrayList<ReactionTimer>>() {}.getType();
+        try {
+//            f = new FileReader(getFilename());
+
+            f = getContext().openFileInput(getFilename());
+            InputStreamReader is = new InputStreamReader(f);
+
+//            BufferedReader r = new BufferedReader(f);
+            modelData = gson.fromJson(is, ta);
+            is.close();
+
+
+        } catch (FileNotFoundException e) {
+            modelData = new ArrayList<ReactionTimer>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

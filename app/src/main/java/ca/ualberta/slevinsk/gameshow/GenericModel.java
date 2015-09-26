@@ -7,11 +7,13 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
@@ -20,10 +22,15 @@ import java.util.ArrayList;
 /**
  * Created by john on 15-09-24.
  */
-public class GenericModel<T> {
+public abstract class GenericModel<T> {
     ArrayList<T> modelData;
 
     private String filename;
+
+    public Context getContext() {
+        return context;
+    }
+
     private Context context;
 
     private void setContext(Context ctx){
@@ -40,24 +47,7 @@ public class GenericModel<T> {
         loadFromFile();
     }
 
-    private void loadFromFile() {
-        FileReader f = null;
-        Gson gson = new Gson();
-
-    Type ta = new TypeToken<ArrayList<T>> () {}.getType();
-        try {
-            f = new FileReader(getFilename());
-            BufferedReader r = new BufferedReader(f);
-            modelData = gson.fromJson(r, ta);
-            r.close();
-
-
-        } catch (FileNotFoundException e) {
-            modelData = new ArrayList<T>();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    protected abstract void loadFromFile();
 
 
     public void saveToFile() {

@@ -2,10 +2,16 @@ package ca.ualberta.slevinsk.gameshow;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,7 +22,7 @@ import android.widget.TextView;
  * Use the {@link StatsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StatsFragment extends Fragment {
+public class StatsFragment extends ListFragment {
 
     private static final String ARG_PAGE = "ARG_PAGE";
     private int mPage;
@@ -42,6 +48,22 @@ public class StatsFragment extends Fragment {
         if (getArguments() != null) {
             mPage = getArguments().getInt(ARG_PAGE);
         }
+
+        ReactionTimersModel r = new ReactionTimersModel(getContext(), "rt.file");
+
+        ;
+
+        List<String> test = new ArrayList<>();
+        test.add(String.format("Max time: %d", r.max(10)));
+        test.add(String.format("Min time: %d", r.min(10)));
+        test.add(String.format("Average time: %d", r.average(10)));
+        test.add(String.format("Median time: %d", r.median(10)));
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.list_item, test);
+        setListAdapter(adapter);
+
+
     }
 
     @Override
@@ -49,8 +71,8 @@ public class StatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_stats, container, false);
-        TextView textView = (TextView) view;
-        textView.setText("Fragment #" + mPage);
+        ListView listView = (ListView) view;
+//        listView.setText("Fragment #" + mPage);
         return view;
     }
 
