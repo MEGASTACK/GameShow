@@ -43,24 +43,24 @@ public abstract class GenericModel<T> {
 
     public abstract Type getTypeToken();
 
+    public void initializeStorage(){
+        modelData = new ArrayList<T>();
+    }
+
     protected void loadFromFile() {
         FileInputStream f = null;
         Gson gson = new Gson();
 
         Type ta = getTypeToken();
         try {
-//            f = new FileReader(getFilename());
-
             f = getContext().openFileInput(getFilename());
             InputStreamReader is = new InputStreamReader(f);
-
-//            BufferedReader r = new BufferedReader(f);
             modelData = gson.fromJson(is, ta);
             is.close();
 
 
         } catch (FileNotFoundException e) {
-            modelData = new ArrayList<T>();
+            initializeStorage();
         } catch (IOException e) {
             e.printStackTrace();
         }

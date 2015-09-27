@@ -7,41 +7,41 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link GameShowTwoPlayers.OnFragmentInteractionListener} interface
+ * {@link GameshowButtonsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link GameShowTwoPlayers#newInstance} factory method to
+ * Use the {@link GameshowButtonsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GameShowTwoPlayers extends Fragment {
+public class GameshowButtonsFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "numberOfPlayers";
 
     private Integer numberOfPlayers;
+    private BuzzerCounterModel buzzerCounterModel;
+    private BuzzerCounter buzzerCounter;
+
 
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GameShowTwoPlayers.
-     */
-    public static GameShowTwoPlayers newInstance(Integer numPlayers) {
-        GameShowTwoPlayers fragment = new GameShowTwoPlayers();
+
+    public static GameshowButtonsFragment newInstance(Integer numPlayers) {
+        GameshowButtonsFragment fragment = new GameshowButtonsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, numPlayers);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public GameShowTwoPlayers() {
+    public GameshowButtonsFragment() {
         // Required empty public constructor
     }
 
@@ -51,6 +51,56 @@ public class GameShowTwoPlayers extends Fragment {
         if (getArguments() != null) {
             numberOfPlayers = getArguments().getInt(ARG_PARAM1);
         }
+
+
+
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        try {
+            getView().findViewById(R.id.buttonP1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buzzerCounter.increment(1);
+                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(1)), Toast.LENGTH_SHORT).show();
+                }
+            });
+            getView().findViewById(R.id.buttonP2).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buzzerCounter.increment(2);
+                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(2)), Toast.LENGTH_SHORT).show();
+                }
+            });
+            getView().findViewById(R.id.buttonP3).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buzzerCounter.increment(3);
+                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(3)), Toast.LENGTH_SHORT).show();
+                }
+            });
+            getView().findViewById(R.id.buttonP4).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buzzerCounter.increment(4);
+                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(4)), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        buzzerCounterModel.saveToFile();
     }
 
     @Override
@@ -60,6 +110,7 @@ public class GameShowTwoPlayers extends Fragment {
 //        return inflater.inflate(R.layout.fragment_game_show_two_players, container, false);
 
         int layout;
+        buzzerCounterModel = new BuzzerCounterModel(getContext(), "buzz.file");
 
         switch (numberOfPlayers) {
             case 2:
@@ -72,20 +123,13 @@ public class GameShowTwoPlayers extends Fragment {
                 layout = R.layout.gameshow_4_players;
                 break;
             default:
-                throw new RuntimeException("Invalud number of players!");
+                throw new RuntimeException("Invalid number of players!");
         }
-
-
+        buzzerCounter = buzzerCounterModel.getBuzzerCounter(numberOfPlayers);
         return inflater.inflate(layout, container, false);
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Activity activity) {

@@ -2,15 +2,49 @@ package ca.ualberta.slevinsk.gameshow;
 
 import android.os.Bundle;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by john on 15-09-26.
  */
 public class BuzzerCounter {
+    public Map<Integer, Integer> getCounts() {
+        return counts;
+    }
+
     private Map<Integer, Integer> counts;
+    private static final Integer MIN_PLAYERS = 2;
+    private static final Integer MAX_PLAYERS = 4;
 
     public BuzzerCounter(Integer players) {
 
+        counts = new HashMap<>();
+        if (players < MIN_PLAYERS || players > MAX_PLAYERS) {
+            throw new RuntimeException(String.format("Invalid player count: %d", players));
+        }
+
+        for (Integer i=1; i<=players; i++){
+            getCounts().put(i, 0);
+        }
     }
+
+    /**
+     * Increment a player's score
+     * @param n the player to increment
+     */
+    public void increment(Integer n) {
+        Integer newCount = getCount(n) + 1;
+        setCount(n, newCount);
+    }
+
+    public Integer getCount(Integer n){
+        return getCounts().get(n);
+    }
+
+    public void setCount(Integer n, Integer count){
+        getCounts().put(n, count);
+    }
+
+
 }
