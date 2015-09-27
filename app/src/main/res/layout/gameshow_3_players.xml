@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/player1"
-        android:id="@+id/button"
+        android:id="@+id/buttonP1"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
 
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/player2"
-        android:id="@+id/button2"
+        android:id="@+id/buttonP2"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/player3"
-        android:id="@+id/button3"
+        android:id="@+id/buttonP3"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
 </LinearLayout>
