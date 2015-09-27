@@ -1,7 +1,5 @@
 package ca.ualberta.slevinsk.gameshow;
 
-import android.database.DataSetObserver;
-import android.media.ImageReader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -11,64 +9,54 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link StatsFragment.OnFragmentInteractionListener} interface
+ * {@link BuzzerStatsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link StatsFragment#newInstance} factory method to
+ * Use the {@link BuzzerStatsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StatsFragment extends ListFragment {
+public class BuzzerStatsFragment extends ListFragment {
 
     private static final String ARG_PAGE = "ARG_PAGE";
-    private int mPage;
+
 
 //    private OnFragmentInteractionListener mListener;
 
 
-    public static StatsFragment newInstance( ) {
-        StatsFragment fragment = new StatsFragment();
+    public static BuzzerStatsFragment newInstance( ) {
+        BuzzerStatsFragment fragment = new BuzzerStatsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public StatsFragment() {
+    public BuzzerStatsFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mPage = getArguments().getInt(ARG_PAGE);
-        }
-
-
 
     }
 
 
-    public List<String> generateStatsData(ReactionTimersModel r, Integer n){
+    public List<String> generateStatsData(BuzzerCounter b, Integer n){
         List<String> test = new ArrayList<>();
-        test.add(String.format("Max time: %d", r.max(n)));
-        test.add(String.format("Min time: %d", r.min(n)));
-        test.add(String.format("Average time: %d", r.average(n)));
-        test.add(String.format("Median time: %d", r.median(n)));
+
+        for (int i=1; i<=n; i++){
+
+            test.add(String.format("Player %d Buzz Count: %d", i, b.getCount(i)));
+        }
         return test;
     }
 
@@ -76,12 +64,12 @@ public class StatsFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final ReactionTimersModel r = new ReactionTimersModel(getContext(), "rt.file");
+        final BuzzerCounterModel buzzerCounterModel = new BuzzerCounterModel(getContext(), "buzz.file");
 
 
 
 
-        final List<String> test = generateStatsData(r,10);
+        final List<String> test = generateStatsData(buzzerCounterModel.getBuzzerCounter(2), 2);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, test);
         setListAdapter(adapter);
 
@@ -89,9 +77,9 @@ public class StatsFragment extends ListFragment {
 
 
         ArrayList<SpecialPair<String, Integer>> test2 = new ArrayList<>();
-        test2.add(new SpecialPair<String, Integer>("Last 10", 10));
-        test2.add(new SpecialPair<String, Integer>("Last 100", 100));
-        test2.add(new SpecialPair<String, Integer>("All", -1));
+        test2.add(new SpecialPair<String, Integer>("2 Player Mode", 2));
+        test2.add(new SpecialPair<String, Integer>("3 Player Mode", 3));
+        test2.add(new SpecialPair<String, Integer>("4 Player Mode", 4));
         ArrayAdapter<SpecialPair<String, Integer>> adapter2 = new ArrayAdapter<>(getContext(), R.layout.list_item, test2);
 
 
@@ -104,7 +92,7 @@ public class StatsFragment extends ListFragment {
 
                 Toast.makeText(getContext(), String.format("You selected %s", selected), Toast.LENGTH_SHORT).show();
                 test.clear();
-                test.addAll(generateStatsData(r, selected.second));
+                test.addAll(generateStatsData(buzzerCounterModel.getBuzzerCounter(selected.second), selected.second));
                 adapter.notifyDataSetChanged();
 
             }

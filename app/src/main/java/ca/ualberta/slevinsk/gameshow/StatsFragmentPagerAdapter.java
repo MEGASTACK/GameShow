@@ -25,7 +25,16 @@ public class StatsFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return StatsFragment.newInstance(position + 1);
+
+        switch (position) {
+            case 0:
+                return StatsFragment.newInstance();
+            case 1:
+                return BuzzerStatsFragment.newInstance();
+            default:
+                throw new RuntimeException(String.format("Invalid page: %d", position));
+        }
+
     }
 
     @Override
