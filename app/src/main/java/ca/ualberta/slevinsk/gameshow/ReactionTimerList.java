@@ -1,32 +1,55 @@
 package ca.ualberta.slevinsk.gameshow;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Created by john on 15-09-24.
+ * Created by john on 15-10-03.
  */
-public class ReactionTimersModel extends GenericModel<ReactionTimer> {
+public class ReactionTimerList implements Serializable {
 
-    public ReactionTimersModel(Context ctx, String filename) {
-        super(ctx, filename);
+    //TODO serialid
+    protected ArrayList<ReactionTimer> reactionTimers = null;
+
+    public ArrayList<Listener> getListeners() {
+        return listeners;
     }
 
-    @Override
-    public Type getTypeToken() {
-        return new TypeToken<ArrayList<ReactionTimer>>() {}.getType();
+    protected transient ArrayList<Listener> listeners = null;
+
+    public ReactionTimerList() {
+        reactionTimers = new ArrayList<>();
+        listeners = new ArrayList<>();
+    }
+
+    public List<ReactionTimer> getReactionTimers(){
+        return reactionTimers;
+    }
+
+    public void addReactionTimer(ReactionTimer timer){
+        reactionTimers.add(timer);
+        notifyListeners();
+    }
+
+    public void addListener(Listener listener){
+        getListeners().add(listener);
+    }
+
+    private void notifyListeners(){
+        for (Listener listener:getListeners()){
+            listener.update();
+        }
+    }
+
+    public void removeReactionTimer(ReactionTimer timer){
+        getReactionTimers().add(timer);
+        notifyListeners();
     }
 
     /**
@@ -83,9 +106,9 @@ public class ReactionTimersModel extends GenericModel<ReactionTimer> {
     @NonNull
     private List<ReactionTimer> slice(Integer n) {
         if (n < 0) {
-            return new ArrayList<>(getModelData());
+            return new ArrayList<>(getReactionTimers());
         } else {
-            List<ReactionTimer> r =  getModelData().subList(Math.max(getModelData().size() - n, 0), getModelData().size());
+            List<ReactionTimer> r =  getReactionTimers().subList(Math.max(getReactionTimers().size() - n, 0), getReactionTimers().size());
             return new ArrayList<>(r);
         }
     }

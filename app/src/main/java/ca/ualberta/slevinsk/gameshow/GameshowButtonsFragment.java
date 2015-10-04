@@ -7,10 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.NumberPicker;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 
 /**
@@ -26,7 +23,7 @@ public class GameshowButtonsFragment extends Fragment {
     private static final String ARG_PARAM1 = "numberOfPlayers";
 
     private Integer numberOfPlayers;
-    private BuzzerCounterModel buzzerCounterModel;
+    private BuzzerCounterManager buzzerCounterManager;
     private BuzzerCounter buzzerCounter;
 
 
@@ -100,7 +97,7 @@ public class GameshowButtonsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        buzzerCounterModel.saveToFile();
+        buzzerCounterManager.saveToFile();
     }
 
     @Override
@@ -110,7 +107,7 @@ public class GameshowButtonsFragment extends Fragment {
 //        return inflater.inflate(R.layout.fragment_game_show_two_players, container, false);
 
         int layout;
-        buzzerCounterModel = new BuzzerCounterModel(getContext(), "buzz.file");
+        buzzerCounterManager = new BuzzerCounterManager(getContext(), "buzz.file");
 
         switch (numberOfPlayers) {
             case 2:
@@ -125,7 +122,7 @@ public class GameshowButtonsFragment extends Fragment {
             default:
                 throw new RuntimeException("Invalid number of players!");
         }
-        buzzerCounter = buzzerCounterModel.getBuzzerCounter(numberOfPlayers);
+        buzzerCounter = buzzerCounterManager.getBuzzerCounter(numberOfPlayers);
         return inflater.inflate(layout, container, false);
 
     }

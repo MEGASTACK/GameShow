@@ -16,7 +16,7 @@ public class ReactionTimerActivity extends AppCompatActivity {
     private ReactionTimer currentTimer;
     private Handler handler;
     private Button button;
-    private ReactionTimersModel timers;
+    private ReactionTimerList timers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,14 @@ public class ReactionTimerActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.reactionTimerButton);
         handler = new Handler();
         currentTimer = new ReactionTimer();
-        timers = new ReactionTimersModel(this, "rt.file");
+        timers = ReactionTimersController.getReactionTimerList();
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ReactionTimersController.saveReactionTimerList();
     }
 
     private void startReactionTimer() {
@@ -75,8 +81,8 @@ public class ReactionTimerActivity extends AppCompatActivity {
             Snackbar.make(view, "You are a dirty cheater", Snackbar.LENGTH_SHORT).show();
         } else {
             Snackbar.make(view, String.format("Time delta: %d", timeDelta), Snackbar.LENGTH_SHORT).show();
-            timers.add(currentTimer);
-            timers.saveToFile();
+
+            ReactionTimersController.add(currentTimer);
         }
 
 

@@ -1,7 +1,5 @@
 package ca.ualberta.slevinsk.gameshow;
 
-import android.database.DataSetObserver;
-import android.media.ImageReader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -11,17 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -63,25 +55,22 @@ public class StatsFragment extends ListFragment {
     }
 
 
-    public List<String> generateStatsData(ReactionTimersModel r, Integer n){
-        List<String> test = new ArrayList<>();
-        test.add(String.format("Max time: %d", r.max(n)));
-        test.add(String.format("Min time: %d", r.min(n)));
-        test.add(String.format("Average time: %d", r.average(n)));
-        test.add(String.format("Median time: %d", r.median(n)));
-        return test;
-    }
+//    public List<String> generateStatsData(ReactionTimersManager r, Integer n){
+//        List<String> test = new ArrayList<>();
+//        test.add(String.format("Max time: %d", r.max(n)));
+//        test.add(String.format("Min time: %d", r.min(n)));
+//        test.add(String.format("Average time: %d", r.average(n)));
+//        test.add(String.format("Median time: %d", r.median(n)));
+//        return test;
+//    }
 
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final ReactionTimersModel r = new ReactionTimersModel(getContext(), "rt.file");
 
 
-
-
-        final List<String> test = generateStatsData(r,10);
+        final List<String> test = ReactionTimersController.generateStatsData(10);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, test);
         setListAdapter(adapter);
 
@@ -104,7 +93,7 @@ public class StatsFragment extends ListFragment {
 
                 Toast.makeText(getContext(), String.format("You selected %s", selected), Toast.LENGTH_SHORT).show();
                 test.clear();
-                test.addAll(generateStatsData(r, selected.second));
+                test.addAll(ReactionTimersController.generateStatsData(selected.second));
                 adapter.notifyDataSetChanged();
 
             }
