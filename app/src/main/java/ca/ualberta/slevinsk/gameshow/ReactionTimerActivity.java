@@ -58,6 +58,7 @@ public class ReactionTimerActivity extends AppCompatActivity {
     private void showDialog(String message){
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setMessage(message);
+        b.setTitle("Welcome!");
         b.setCancelable(false);
         b.setPositiveButton("OK", onDismissDialog);
         b.show();
@@ -88,7 +89,7 @@ public class ReactionTimerActivity extends AppCompatActivity {
         }
 
 
-        showDialog("This is the reaction currentTimer!\nWait for the button to say \"Press me!\", and then" +
-                "press it!");
+        showDialog("Welcome to reaction timer mode.\nPlease wait for the button to say \"Press me!\", and then " +
+                "press it as quickly as you can. But don't press the button too early!");
     }
 }

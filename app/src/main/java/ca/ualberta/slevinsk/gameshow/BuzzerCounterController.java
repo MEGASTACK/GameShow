@@ -1,5 +1,8 @@
 package ca.ualberta.slevinsk.gameshow;
 
+import android.app.AlertDialog;
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +14,7 @@ public class BuzzerCounterController {
 
     static public BuzzerCounterList getBuzzerCounterList(){
         if (buzzerCounterList == null){
-            try {
-                buzzerCounterList = BuzzerCounterManager.getManager().loadBuzzerCounterList();
-                buzzerCounterList.addListener(new Listener() {
-                    @Override
-                    public void update() {
-
-                    }
-                });
-            } catch (ClassCastException e){
-                e.printStackTrace();
-            }
+            buzzerCounterList = BuzzerCounterManager.getManager().loadBuzzerCounterList();
         }
         return buzzerCounterList;
     }
@@ -30,8 +23,12 @@ public class BuzzerCounterController {
         BuzzerCounterManager.getManager().saveBuzzerCounterList(getBuzzerCounterList());
     }
 
-    public static BuzzerCounter getBuzzerCounter(Integer nplayers){
-        return getBuzzerCounterList().getBuzzerCounter(nplayers);
+    public static void incrementCounter(Integer gamePlayers, Integer player){
+        getBuzzerCounterList().incrementCounter(gamePlayers, player);
+    }
+
+    public static Integer getCount(Integer nplayers, Integer player){
+        return getBuzzerCounterList().getCount(nplayers, player);
     }
 
     public static void clearData() {
@@ -44,7 +41,7 @@ public class BuzzerCounterController {
         List<String> statsData = new ArrayList<>();
 
         for (int i=1; i<=n; i++){
-            statsData.add(String.format("Player %d Buzz Count: %d", i, getBuzzerCounter(n).getCount(i)));
+            statsData.add(String.format("Player %d Buzz Count: %d", i, getCount(n, i)));
         }
         return statsData;
     }
@@ -62,4 +59,6 @@ public class BuzzerCounterController {
         b.append("\n");
         return b.toString();
     }
+
+
 }

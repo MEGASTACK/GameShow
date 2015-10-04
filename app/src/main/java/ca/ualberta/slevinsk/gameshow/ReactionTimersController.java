@@ -11,17 +11,7 @@ public class ReactionTimersController {
 
     static public ReactionTimerList getReactionTimerList(){
         if(reactionTimerList == null) {
-            try {
-                reactionTimerList = ReactionTimersManager.getManager().loadReactionTimerList();
-                reactionTimerList.addListener(new Listener() {
-                    @Override
-                    public void update() {
-
-                    }
-                });
-            } catch (ClassCastException e) {
-                e.printStackTrace();
-            }
+            reactionTimerList = ReactionTimersManager.getManager().loadReactionTimerList();
         }
         return reactionTimerList;
     }

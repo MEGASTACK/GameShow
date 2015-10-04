@@ -26,6 +26,9 @@ public class BuzzerCounterList implements Serializable{
             listener.update();
         }
     }
+    public void clearListeners() {
+        listeners = new ArrayList<>();
+    }
 
 
     BuzzerCounterList(){
@@ -35,7 +38,7 @@ public class BuzzerCounterList implements Serializable{
         listeners = new ArrayList<>();
     }
 
-    public BuzzerCounter getBuzzerCounter(Integer i){
+    private BuzzerCounter getBuzzerCounter(Integer i){
         switch (i) {
             case 2:
                 return twoPlayersGame;
@@ -48,6 +51,15 @@ public class BuzzerCounterList implements Serializable{
         }
     }
 
+    public void incrementCounter(Integer nplayers, Integer player){
+        getBuzzerCounter(nplayers).increment(player);
+    }
+
+    public Integer getCount(Integer nplayers, Integer player){
+        return getBuzzerCounter(nplayers).getCount(player);
+    }
+
+
     public void clearData() {
         twoPlayersGame = new BuzzerCounter(2);
         threePlayersGame = new BuzzerCounter(3);
@@ -55,7 +67,4 @@ public class BuzzerCounterList implements Serializable{
         notifyListeners();
     }
 
-    public void clearListeners() {
-        listeners = new ArrayList<>();
-    }
 }

@@ -1,6 +1,8 @@
 package ca.ualberta.slevinsk.gameshow;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,8 +25,6 @@ public class GameshowButtonsFragment extends Fragment {
     private static final String ARG_PARAM1 = "numberOfPlayers";
 
     private Integer numberOfPlayers;
-    private BuzzerCounter buzzerCounter;
-
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,49 +47,60 @@ public class GameshowButtonsFragment extends Fragment {
         if (getArguments() != null) {
             numberOfPlayers = getArguments().getInt(ARG_PARAM1);
         }
-
-
-
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        try {
-            getView().findViewById(R.id.buttonP1).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    buzzerCounter.increment(1);
-                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(1)), Toast.LENGTH_SHORT).show();
-                }
-            });
-            getView().findViewById(R.id.buttonP2).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    buzzerCounter.increment(2);
-                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(2)), Toast.LENGTH_SHORT).show();
-                }
-            });
-            getView().findViewById(R.id.buttonP3).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    buzzerCounter.increment(3);
-                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(3)), Toast.LENGTH_SHORT).show();
-                }
-            });
-            getView().findViewById(R.id.buttonP4).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    buzzerCounter.increment(4);
-                    Toast.makeText(getContext(), String.format("%d", buzzerCounter.getCount(4)), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+
+        int ids[] = {R.id.buttonP1, R.id.buttonP2, R.id.buttonP3, R.id.buttonP4};
+
+
+        for(int i=0; i<numberOfPlayers; i++){
+
+            BuzzerButtonListener listener = new BuzzerButtonListener(numberOfPlayers, i+1);
+
+//            BuzzerCounterController.getBuzzerCounterList().addListener(listener);
+            getView().findViewById(ids[i]).setOnClickListener(listener);
         }
 
+    }
 
+
+
+     public class BuzzerButtonListener implements View.OnClickListener, Listener{
+
+        private int playerId;
+        private int numberOfPlayers;
+
+        BuzzerButtonListener(int numberOfPlayers, int playerId){
+            this.playerId = playerId;
+            this.numberOfPlayers = numberOfPlayers;
+//            getBuzzerCounterList().addListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            BuzzerCounterController.incrementCounter(numberOfPlayers, playerId);
+            createDialog();
+        }
+
+        public void createDialog(){
+            AlertDialog.Builder b = new AlertDialog.Builder(getContext());
+
+            b.setTitle("Gameshow Buzzer");
+            b.setMessage(String.format("Player %d buzzed", playerId));
+            b.setPositiveButton("OK", null);
+            AlertDialog bs =b.create();
+            bs.show();
+        }
+
+        @Override
+        public void update() {
+
+        }
     }
 
 
@@ -120,7 +131,6 @@ public class GameshowButtonsFragment extends Fragment {
             default:
                 throw new RuntimeException("Invalid number of players!");
         }
-        buzzerCounter = BuzzerCounterController.getBuzzerCounter(numberOfPlayers);
         return inflater.inflate(layout, container, false);
 
     }

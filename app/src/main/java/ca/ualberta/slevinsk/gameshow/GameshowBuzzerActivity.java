@@ -47,17 +47,15 @@ public class GameshowBuzzerActivity extends AppCompatActivity implements NumberP
         Fragment fragment = fm.findFragmentByTag("myFragmentTag");
 
 
-        if (true) {
-            FragmentTransaction ft = fm.beginTransaction();
-            fragment = new GameshowButtonsFragment();
-            Bundle b = new Bundle();
-            b.putInt("numberOfPlayers", numberOfPlayers);
+        FragmentTransaction ft = fm.beginTransaction();
+        fragment = new GameshowButtonsFragment();
+        Bundle b = new Bundle();
+        b.putInt("numberOfPlayers", numberOfPlayers);
 
-            fragment.setArguments(b);
+        fragment.setArguments(b);
 
-            ft.replace(R.id.fgContainer, fragment, "myFragmentTag");
-            ft.commit();
-        }
+        ft.replace(R.id.fgContainer, fragment, "myFragmentTag");
+        ft.commit();
 
     }
 
