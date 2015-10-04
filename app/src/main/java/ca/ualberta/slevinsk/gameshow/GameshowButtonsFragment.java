@@ -42,8 +42,6 @@ public class GameshowButtonsFragment extends Fragment {
 
     private Integer numberOfPlayers;
 
-    private OnFragmentInteractionListener mListener;
-
 
     public static GameshowButtonsFragment newInstance(Integer numPlayers) {
         GameshowButtonsFragment fragment = new GameshowButtonsFragment();
@@ -69,19 +67,12 @@ public class GameshowButtonsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         int ids[] = {R.id.buttonP1, R.id.buttonP2, R.id.buttonP3, R.id.buttonP4};
-
-
         for(int i=0; i<numberOfPlayers; i++){
 
             BuzzerButtonListener listener = new BuzzerButtonListener(numberOfPlayers, i+1);
-
-//            BuzzerCounterController.getBuzzerCounterList().addListener(listener);
             getView().findViewById(ids[i]).setOnClickListener(listener);
         }
-
     }
 
 
@@ -94,7 +85,7 @@ public class GameshowButtonsFragment extends Fragment {
         BuzzerButtonListener(int numberOfPlayers, int playerId){
             this.playerId = playerId;
             this.numberOfPlayers = numberOfPlayers;
-//            getBuzzerCounterList().addListener(this);
+//            getBuzzerCounterContainer().addListener(this);
         }
 
         @Override
@@ -149,39 +140,6 @@ public class GameshowButtonsFragment extends Fragment {
         }
         return inflater.inflate(layout, container, false);
 
-    }
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
     }
 
 }

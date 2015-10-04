@@ -19,34 +19,20 @@ package ca.ualberta.slevinsk.gameshow;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BuzzerStatsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BuzzerStatsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class BuzzerStatsFragment extends ListFragment {
 
     private static final String ARG_PAGE = "ARG_PAGE";
-
-
-//    private OnFragmentInteractionListener mListener;
-
 
     public static BuzzerStatsFragment newInstance( ) {
         BuzzerStatsFragment fragment = new BuzzerStatsFragment();
@@ -69,7 +55,7 @@ public class BuzzerStatsFragment extends ListFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        BuzzerCounterController.getBuzzerCounterList().clearListeners();
+        BuzzerCounterController.getBuzzerCounterContainer().clearListeners();
     }
 
     @Override
@@ -87,11 +73,11 @@ public class BuzzerStatsFragment extends ListFragment {
 
 
 
-        ArrayList<SpecialPair<String, Integer>> test2 = new ArrayList<>();
-        test2.add(new SpecialPair<String, Integer>("2 Player Mode", 2));
-        test2.add(new SpecialPair<String, Integer>("3 Player Mode", 3));
-        test2.add(new SpecialPair<String, Integer>("4 Player Mode", 4));
-        ArrayAdapter<SpecialPair<String, Integer>> adapter2 = new ArrayAdapter<>(getContext(), R.layout.list_item, test2);
+        ArrayList<SpecialPair<String, Integer>> choices = new ArrayList<>();
+        choices.add(new SpecialPair<String, Integer>("2 Player Mode", 2));
+        choices.add(new SpecialPair<String, Integer>("3 Player Mode", 3));
+        choices.add(new SpecialPair<String, Integer>("4 Player Mode", 4));
+        ArrayAdapter<SpecialPair<String, Integer>> adapter2 = new ArrayAdapter<>(getContext(), R.layout.list_item, choices);
 
 
 
@@ -107,7 +93,7 @@ public class BuzzerStatsFragment extends ListFragment {
 
         spinner.setAdapter(adapter2);
         spinner.setOnItemSelectedListener(listener);
-        BuzzerCounterController.getBuzzerCounterList().addListener(listener);
+        BuzzerCounterController.getBuzzerCounterContainer().addListener(listener);
 
 
     }
@@ -116,7 +102,6 @@ public class BuzzerStatsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_stats, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_stats, container, false);
     }
 }

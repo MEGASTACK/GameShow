@@ -18,9 +18,7 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -82,7 +80,7 @@ public class ReactionTimerList implements Serializable {
         }
 
         for (ReactionTimer t: l){
-            sum += t.targetDelta();
+            sum += t.getTimeDelta();
         }
         return sum / l.size();
     }
@@ -95,7 +93,7 @@ public class ReactionTimerList implements Serializable {
     public Long max(Integer n){
 
         try {
-            return Collections.max(slice(n)).targetDelta();
+            return Collections.max(slice(n)).getTimeDelta();
         } catch(NoSuchElementException e){
             return 0L;
         }
@@ -108,7 +106,7 @@ public class ReactionTimerList implements Serializable {
      */
     public Long min(Integer n){
         try {
-            return Collections.min(slice(n)).targetDelta();
+            return Collections.min(slice(n)).getTimeDelta();
         } catch(NoSuchElementException e){
             return 0L;
         }
@@ -128,7 +126,7 @@ public class ReactionTimerList implements Serializable {
         }
 
         Collections.sort(l);
-        return l.get(realLength / 2).targetDelta();
+        return l.get(realLength / 2).getTimeDelta();
     }
 
     /**

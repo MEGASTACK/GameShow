@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class BuzzerCounterList implements Serializable{
+public class BuzzerCounterContainer implements Serializable{
     protected BuzzerCounter twoPlayersGame;
     protected BuzzerCounter threePlayersGame;
     protected BuzzerCounter fourPlayersGame;
@@ -43,15 +43,15 @@ public class BuzzerCounterList implements Serializable{
     }
 
 
-    BuzzerCounterList(){
+    BuzzerCounterContainer(){
         twoPlayersGame = new BuzzerCounter(2);
         threePlayersGame = new BuzzerCounter(3);
         fourPlayersGame = new BuzzerCounter(4);
         listeners = new ArrayList<>();
     }
 
-    private BuzzerCounter getBuzzerCounter(Integer i){
-        switch (i) {
+    private BuzzerCounter getBuzzerCounter(Integer playerCount){
+        switch (playerCount) {
             case 2:
                 return twoPlayersGame;
             case 3:
@@ -59,16 +59,16 @@ public class BuzzerCounterList implements Serializable{
             case 4:
                 return fourPlayersGame;
             default:
-                throw new RuntimeException(String.format("Invalid number of players: %d", i));
+                throw new RuntimeException(String.format("Invalid number of players: %d", playerCount));
         }
     }
 
-    public void incrementCounter(Integer nplayers, Integer player){
-        getBuzzerCounter(nplayers).increment(player);
+    public void incrementCounter(Integer playerCount, Integer player){
+        getBuzzerCounter(playerCount).increment(player);
     }
 
-    public Integer getCount(Integer nplayers, Integer player){
-        return getBuzzerCounter(nplayers).getCount(player);
+    public Integer getCount(Integer playerCount, Integer player){
+        return getBuzzerCounter(playerCount).getCount(player);
     }
 
 

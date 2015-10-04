@@ -26,7 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.NumberPicker;
 
-public class GameshowBuzzerActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener, GameshowButtonsFragment.OnFragmentInteractionListener {
+public class GameshowBuzzerActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
 
     private Integer numberOfPlayers;
 
@@ -46,14 +46,6 @@ public class GameshowBuzzerActivity extends AppCompatActivity implements NumberP
 
         setNumberOfPlayers(2);
 
-    }
-
-
-
-
-
-    public Integer getNumberOfPlayers() {
-        return numberOfPlayers;
     }
 
     public void setNumberOfPlayers(Integer numberOfPlayers) {
@@ -80,9 +72,5 @@ public class GameshowBuzzerActivity extends AppCompatActivity implements NumberP
         setNumberOfPlayers(newVal);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }
 //http://stackoverflow.com/questions/14439941/passing-data-between-fragments-to-activity

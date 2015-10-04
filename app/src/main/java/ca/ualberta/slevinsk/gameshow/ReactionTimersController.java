@@ -23,6 +23,8 @@ import java.util.List;
 public class ReactionTimersController {
     private static ReactionTimerList reactionTimerList = null;
 
+    private static ReactionTimer currentTimer = null;
+
     static public ReactionTimerList getReactionTimerList(){
         if(reactionTimerList == null) {
             reactionTimerList = ReactionTimersManager.getManager().loadReactionTimerList();
@@ -54,6 +56,34 @@ public class ReactionTimersController {
         getReactionTimerList().addReactionTimer(r);
     }
 
+
+    static public void startNewTimer(){
+        currentTimer = new ReactionTimer();
+        currentTimer.randomizeTargetTime();
+        currentTimer.start();
+    }
+
+    static public Long stopTimer(){
+        if (currentTimer == null){
+            throw new RuntimeException("Error: Timer was not started!");
+        } else {
+            currentTimer.stop();
+            Long elapsedTime = currentTimer.getTimeDelta();
+            if (currentTimer.getTimeDelta() >= 0){
+                getReactionTimerList().addReactionTimer(currentTimer);
+            }
+            currentTimer = null;
+            return elapsedTime;
+        }
+    }
+
+    static public Long getCurrentTargetTime(){
+        if (currentTimer == null){
+            throw new RuntimeException("Error: Timer was not started!");
+        } else{
+            return currentTimer.getTargetTime();
+        }
+    }
 
     static public List<String> generateStatsData(Integer n){
         List<String> statsList = new ArrayList<>();

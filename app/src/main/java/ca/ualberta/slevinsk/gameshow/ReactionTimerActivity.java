@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 public class ReactionTimerActivity extends AppCompatActivity {
 
-    private ReactionTimer currentTimer;
     private Handler handler;
     private Button button;
 
@@ -42,7 +41,6 @@ public class ReactionTimerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         button = (Button) findViewById(R.id.reactionTimerButton);
         handler = new Handler();
-        currentTimer = new ReactionTimer();
 
         ReactionTimersManager.initManager(getApplicationContext());
 
@@ -58,11 +56,9 @@ public class ReactionTimerActivity extends AppCompatActivity {
     }
 
     private void startReactionTimer() {
-        currentTimer = new ReactionTimer();
         button.setText("Wait for it...");
-        currentTimer.randomizeTargetTime();
-        currentTimer.start();
-        handler.postDelayed(reactRunnable, currentTimer.getTargetTime());
+        ReactionTimersController.startNewTimer();
+        handler.postDelayed(reactRunnable, ReactionTimersController.getCurrentTargetTime());
     }
 
     @NonNull
@@ -91,9 +87,8 @@ public class ReactionTimerActivity extends AppCompatActivity {
     };
 
     public void onReactionTimerButtonSelected(View view) {
-        currentTimer.stop();
-        Long timeDelta = currentTimer.targetDelta();
 
+        Long timeDelta = ReactionTimersController.stopTimer();
         String result;
 
         if (timeDelta <= 0) {
@@ -101,13 +96,11 @@ public class ReactionTimerActivity extends AppCompatActivity {
             handler.removeCallbacks(reactRunnable);
         } else {
             result = String.format("Reaction time: %dms", timeDelta);
-            ReactionTimersController.add(currentTimer);
         }
 
         Snackbar.make(view, result, Snackbar.LENGTH_SHORT).show();
         button.setText(result);
         button.setOnClickListener(null);
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

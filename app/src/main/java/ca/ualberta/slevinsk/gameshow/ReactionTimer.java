@@ -32,7 +32,7 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
         return startDate;
     }
 
-    public void setStartDate(Long startDate) {
+    private void setStartDate(Long startDate) {
         this.startDate = startDate;
     }
 
@@ -40,7 +40,7 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
         return endDate;
     }
 
-    public void setEndDate(Long endDate) {
+    private void setEndDate(Long endDate) {
         this.endDate = endDate;
     }
 
@@ -48,7 +48,7 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
         return targetTime;
     }
 
-    public void setTargetTime(Long targetTime) {
+    private void setTargetTime(Long targetTime) {
         this.targetTime = targetTime;
     }
 
@@ -80,7 +80,7 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
      *
      * @return the amount of time that has passed, in milliseconds
      */
-    public Long getElapsedTime(){
+    private Long getElapsedTime(){
         return Math.max(getEndDate() - getStartDate(), 0);
     }
 
@@ -88,14 +88,14 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
      *
      * @return the amount of time that has passed after the target
      */
-    public Long targetDelta() {
+    public Long getTimeDelta() {
         return getElapsedTime() - getTargetTime();
     }
 
 
     @Override
     public int compareTo(ReactionTimer another) {
-        return targetDelta().compareTo(another.targetDelta());
+        return getTimeDelta().compareTo(another.getTimeDelta());
     }
 
 

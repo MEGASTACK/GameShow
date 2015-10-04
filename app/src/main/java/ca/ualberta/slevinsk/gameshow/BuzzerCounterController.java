@@ -16,9 +16,6 @@
 
 package ca.ualberta.slevinsk.gameshow;
 
-import android.app.AlertDialog;
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,29 +23,29 @@ import java.util.List;
  * Created by john on 15-10-03.
  */
 public class BuzzerCounterController {
-    private static BuzzerCounterList buzzerCounterList = null;
+    private static BuzzerCounterContainer buzzerCounterContainer = null;
 
-    static public BuzzerCounterList getBuzzerCounterList(){
-        if (buzzerCounterList == null){
-            buzzerCounterList = BuzzerCounterManager.getManager().loadBuzzerCounterList();
+    static public BuzzerCounterContainer getBuzzerCounterContainer(){
+        if (buzzerCounterContainer == null){
+            buzzerCounterContainer = BuzzerCounterManager.getManager().loadBuzzerCounterList();
         }
-        return buzzerCounterList;
+        return buzzerCounterContainer;
     }
 
     static public void saveBuzzerCounterList() {
-        BuzzerCounterManager.getManager().saveBuzzerCounterList(getBuzzerCounterList());
+        BuzzerCounterManager.getManager().saveBuzzerCounterList(getBuzzerCounterContainer());
     }
 
     public static void incrementCounter(Integer gamePlayers, Integer player){
-        getBuzzerCounterList().incrementCounter(gamePlayers, player);
+        getBuzzerCounterContainer().incrementCounter(gamePlayers, player);
     }
 
     public static Integer getCount(Integer nplayers, Integer player){
-        return getBuzzerCounterList().getCount(nplayers, player);
+        return getBuzzerCounterContainer().getCount(nplayers, player);
     }
 
     public static void clearData() {
-        getBuzzerCounterList().clearData();
+        getBuzzerCounterContainer().clearData();
 
         saveBuzzerCounterList();
     }

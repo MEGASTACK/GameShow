@@ -1,7 +1,6 @@
 package ca.ualberta.slevinsk.gameshow;
 
 import android.content.Context;
-import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * Copyright 2015 John Slevinsky
@@ -67,19 +65,19 @@ public class BuzzerCounterManager {
     }
 
     public Type getTypeToken() {
-        return new TypeToken<BuzzerCounterList> () {}.getType();
+        return new TypeToken<BuzzerCounterContainer> () {}.getType();
     }
 
-    public void saveBuzzerCounterList(BuzzerCounterList b){
+    public void saveBuzzerCounterList(BuzzerCounterContainer b){
         saveToFile(b);
     }
 
-    public BuzzerCounterList loadBuzzerCounterList(){
+    public BuzzerCounterContainer loadBuzzerCounterList(){
         return loadFromFile();
     }
 
 
-    public void saveToFile(BuzzerCounterList b) {
+    public void saveToFile(BuzzerCounterContainer b) {
         Gson gson = new Gson();
         try {
             FileOutputStream f = context.openFileOutput(getFilename(), Context.MODE_PRIVATE);
@@ -94,11 +92,11 @@ public class BuzzerCounterManager {
         }
     }
 
-    public BuzzerCounterList loadFromFile() {
+    public BuzzerCounterContainer loadFromFile() {
         FileInputStream f = null;
         Gson gson = new Gson();
 
-        BuzzerCounterList b=null;
+        BuzzerCounterContainer b=null;
 
         Type ta = getTypeToken();
         try {
@@ -109,7 +107,7 @@ public class BuzzerCounterManager {
 
 
         } catch (FileNotFoundException e) {
-            return new BuzzerCounterList();
+            return new BuzzerCounterContainer();
         } catch (IOException e) {
             e.printStackTrace();
         }

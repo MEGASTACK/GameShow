@@ -39,7 +39,7 @@ public class StatsFragmentPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return StatsFragment.newInstance();
+                return ReactionStatsFragment.newInstance();
             case 1:
                 return BuzzerStatsFragment.newInstance();
             default:
