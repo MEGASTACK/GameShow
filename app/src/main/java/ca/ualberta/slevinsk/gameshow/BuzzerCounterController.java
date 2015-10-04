@@ -48,4 +48,18 @@ public class BuzzerCounterController {
         }
         return statsData;
     }
+
+    public static String generateEmailData(){
+        StringBuilder b = new StringBuilder();
+
+        b.append("Gameshow Buzzer Data\n");
+        for (int i=2; i<=4; i++){
+            b.append(String.format("%d Player Game Stats:\n",i));
+            for (String line:generateStatsData(i)){
+                b.append(String.format("%s\n",line));
+            }
+        }
+        b.append("\n");
+        return b.toString();
+    }
 }

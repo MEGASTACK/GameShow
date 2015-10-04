@@ -45,7 +45,10 @@ public class StatsActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/rfc822");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "slevinsk - stats");
-                intent.putExtra(Intent.EXTRA_TEXT, "content should go here");
+                intent.putExtra(Intent.EXTRA_TEXT,
+                        BuzzerCounterController.generateEmailData() +
+                                ReactionTimersController.generateEmailData()
+                );
 
                 try {
                     startActivity(intent);

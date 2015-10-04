@@ -64,4 +64,26 @@ public class ReactionTimersController {
         getReactionTimerList().clearData();
         saveReactionTimerList();
     }
+
+
+    public static String generateEmailData(){
+        StringBuilder b = new StringBuilder();
+
+        Integer modes[] = {10, 100, -1};
+
+        b.append("Reaction time data:\n");
+        for(Integer i:modes){
+            if (i>0){
+                b.append(String.format("Last %d Reaction Times\n", i));
+            } else {
+                b.append("All Time Reaction Stats\n");
+            }
+            for (String line:generateStatsData(-1)) {
+                b.append(String.format("%s\n", line));
+            }
+        }
+
+        b.append("\n");
+        return b.toString();
+    }
 }
