@@ -14,10 +14,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Select Mode"
+        android:text="Reflex"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:textSize="56dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Select Mode"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal" />
 
     <Space
         android:layout_width="match_parent"

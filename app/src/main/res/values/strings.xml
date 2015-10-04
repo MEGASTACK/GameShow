@@ -1,16 +1,13 @@
 <resources>
-    <string name="app_name">slevinsk - react</string>
+    <string name="app_name">slevinsk-reflex</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_stats">StatsActivity</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_reaction_timer">ReactionTimerActivity</string>
-    <string name="title_activity_gameshow_buzzer">GameshowBuzzerActivity</string>
-    <string name="stats">Stats</string>
+    <string name="title_activity_stats">Statistics</string>
+    <string name="title_activity_reaction_timer">Reaction Timer</string>
+    <string name="title_activity_gameshow_buzzer">Gameshow Buzzer</string>
+    <string name="stats">Statistics</string>
     <string name="reactionTimer">Reaction Timer</string>
     <string name="gameshowBuzzer">Gameshow Buzzer</string>
-    <string name="reactionTimerButtonText">Wait for it...</string>
+    <string name="reactionTimerButtonText">Wait for it…</string>
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
     <string name="player3">Player 3</string>

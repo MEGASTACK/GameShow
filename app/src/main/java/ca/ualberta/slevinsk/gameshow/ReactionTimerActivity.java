@@ -1,9 +1,24 @@
 package ca.ualberta.slevinsk.gameshow;
-
+/**
+ * Copyright 2015 John Slevinsky
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +31,6 @@ public class ReactionTimerActivity extends AppCompatActivity {
     private ReactionTimer currentTimer;
     private Handler handler;
     private Button button;
-    private ReactionTimerList timers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +45,9 @@ public class ReactionTimerActivity extends AppCompatActivity {
         currentTimer = new ReactionTimer();
 
         ReactionTimersManager.initManager(getApplicationContext());
-        timers = ReactionTimersController.getReactionTimerList();
+
+        showDialog("Welcome to reaction timer mode.\nPlease wait for the button to say \"Press me!\", and then " +
+                "press it as quickly as you can. But don't press the button too early!");
 
     }
 
@@ -46,14 +62,17 @@ public class ReactionTimerActivity extends AppCompatActivity {
         button.setText("Wait for it...");
         currentTimer.randomizeTargetTime();
         currentTimer.start();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                button.setText("Press me!");
-            }
-        }, currentTimer.getTargetTime());
+        handler.postDelayed(reactRunnable, currentTimer.getTargetTime());
     }
 
+    @NonNull
+    private Runnable reactRunnable = new Runnable() {
+        @Override
+        public void run() {
+            button.setText("Press me!");
+
+        }
+    };
 
     private void showDialog(String message){
         AlertDialog.Builder b = new AlertDialog.Builder(this);
@@ -67,29 +86,41 @@ public class ReactionTimerActivity extends AppCompatActivity {
     private DialogInterface.OnClickListener onDismissDialog = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            Toast t = Toast.makeText(ReactionTimerActivity.this, "Timer should start!", Toast.LENGTH_SHORT);
-            t.show();
             startReactionTimer();
-
         }
     };
 
     public void onReactionTimerButtonSelected(View view) {
-//        Toast.makeText(this, "Button pressed!", Toast.LENGTH_SHORT);
-
         currentTimer.stop();
         Long timeDelta = currentTimer.targetDelta();
 
-        if (timeDelta <= 0) {
-            Snackbar.make(view, "You are a dirty cheater", Snackbar.LENGTH_SHORT).show();
-        } else {
-            Snackbar.make(view, String.format("Time delta: %d", timeDelta), Snackbar.LENGTH_SHORT).show();
+        String result;
 
+        if (timeDelta <= 0) {
+            result = "You pressed the button too soon!";
+            handler.removeCallbacks(reactRunnable);
+        } else {
+            result = String.format("Reaction time: %dms", timeDelta);
             ReactionTimersController.add(currentTimer);
         }
 
+        Snackbar.make(view, result, Snackbar.LENGTH_SHORT).show();
+        button.setText(result);
+        button.setOnClickListener(null);
 
-        showDialog("Welcome to reaction timer mode.\nPlease wait for the button to say \"Press me!\", and then " +
-                "press it as quickly as you can. But don't press the button too early!");
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showDialog("Welcome to reaction timer mode.\nPlease wait for the button to say \"Press me!\", and then " +
+                        "press it as quickly as you can. But don't press the button too early!");
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onReactionTimerButtonSelected(v);
+                    }
+                });
+            }
+        }, 1000);
+
     }
 }
