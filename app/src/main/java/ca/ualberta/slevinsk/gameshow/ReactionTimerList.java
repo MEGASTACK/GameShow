@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by john on 15-10-03.
@@ -28,14 +29,6 @@ public class ReactionTimerList implements Serializable {
     public ArrayList<Listener> getListeners() {
         return listeners;
     }
-    public List<ReactionTimer> getReactionTimers(){
-        return reactionTimers;
-    }
-
-    public void addReactionTimer(ReactionTimer timer){
-        reactionTimers.add(timer);
-        notifyListeners();
-    }
 
     public void addListener(Listener listener){
         getListeners().add(listener);
@@ -45,6 +38,15 @@ public class ReactionTimerList implements Serializable {
         for (Listener listener:getListeners()){
             listener.update();
         }
+    }
+
+    public List<ReactionTimer> getReactionTimers(){
+        return reactionTimers;
+    }
+
+    public void addReactionTimer(ReactionTimer timer){
+        reactionTimers.add(timer);
+        notifyListeners();
     }
 
     public void removeReactionTimer(ReactionTimer timer){
@@ -60,6 +62,11 @@ public class ReactionTimerList implements Serializable {
     public long average(Integer n){
         Long sum = 0L;
         List<ReactionTimer> l = slice(n);
+
+        if(l.size() == 0){
+            return 0;
+        }
+
         for (ReactionTimer t: l){
             sum += t.targetDelta();
         }
@@ -73,7 +80,11 @@ public class ReactionTimerList implements Serializable {
      */
     public Long max(Integer n){
 
-        return Collections.max(slice(n)).targetDelta();
+        try {
+            return Collections.max(slice(n)).targetDelta();
+        } catch(NoSuchElementException e){
+            return 0L;
+        }
     }
 
     /**
@@ -82,7 +93,11 @@ public class ReactionTimerList implements Serializable {
      * @return the average reaction time
      */
     public Long min(Integer n){
-        return Collections.min(slice(n)).targetDelta();
+        try {
+            return Collections.min(slice(n)).targetDelta();
+        } catch(NoSuchElementException e){
+            return 0L;
+        }
     }
 
 
@@ -94,6 +109,10 @@ public class ReactionTimerList implements Serializable {
     public Long median(Integer n){
         List<ReactionTimer> l = slice(n);
         Integer realLength = l.size();
+        if(l.size() == 0){
+            return 0L;
+        }
+
         Collections.sort(l);
         return l.get(realLength / 2).targetDelta();
     }
@@ -114,4 +133,12 @@ public class ReactionTimerList implements Serializable {
     }
 
 
+    public void clearData() {
+        reactionTimers = new ArrayList<>();
+        notifyListeners();
+    }
+
+    public void clearListeners() {
+        listeners = new ArrayList<>();
+    }
 }

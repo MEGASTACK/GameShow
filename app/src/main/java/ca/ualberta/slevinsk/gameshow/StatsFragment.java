@@ -66,13 +66,22 @@ public class StatsFragment extends ListFragment {
 
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ReactionTimersController.getReactionTimerList().clearListeners();
+
+
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 
-        final List<String> test = ReactionTimersController.generateStatsData(10);
+        final List<String> test = new ArrayList<>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, test);
         setListAdapter(adapter);
+
 
         final Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
 
@@ -84,28 +93,18 @@ public class StatsFragment extends ListFragment {
         ArrayAdapter<SpecialPair<String, Integer>> adapter2 = new ArrayAdapter<>(getContext(), R.layout.list_item, test2);
 
 
-        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
-
+        Generator<List, Integer> dataGenerator = new Generator<List, Integer>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Pair<String, Integer> selected = (Pair<String, Integer>) spinner.getItemAtPosition(position);
-
-                Toast.makeText(getContext(), String.format("You selected %s", selected), Toast.LENGTH_SHORT).show();
-                test.clear();
-                test.addAll(ReactionTimersController.generateStatsData(selected.second));
-                adapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public List generate(Integer arg) {
+                return ReactionTimersController.generateStatsData(arg);
             }
         };
 
+        SpinListener listener = new SpinListener(spinner, test, adapter, dataGenerator);
+
         spinner.setAdapter(adapter2);
         spinner.setOnItemSelectedListener(listener);
+        ReactionTimersController.getReactionTimerList().addListener(listener);
 
     }
 
@@ -113,47 +112,8 @@ public class StatsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_stats, container, false);
+        View view = inflater.inflate(R.layout.fragment_stats, container, false);
         return view;
     }
-
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p/>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        public void onFragmentInteraction(Uri uri);
-//    }
 
 }

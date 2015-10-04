@@ -2,7 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".StatsActivity">
-    <item android:id="@+id/action_clear_stats" android:title="@string/clear_stats"
+    <item android:id="@+id/action_clear_react" android:title="@string/clearReact"
         android:orderInCategory="100" app:showAsAction="never" />
-
+    <item android:id="@+id/action_clear_buzz" android:title="@string/clearBuzz"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

@@ -16,4 +16,6 @@
     <string name="player3">Player 3</string>
     <string name="player4">Player 4</string>
     <string name="clear_stats">Clear Stats</string>
+    <string name="clearBuzz">Clear Gameshow Buzzer Stats</string>
+    <string name="clearReact">Clear Reaction Stats</string>
 </resources>

@@ -73,8 +73,12 @@ public class StatsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_clear_stats) {
-            return true;
+        if (id == R.id.action_clear_buzz) {
+            BuzzerCounterController.clearData();
+        }
+
+        if (id == R.id.action_clear_react){
+            ReactionTimersController.clearData();
         }
 
         return super.onOptionsItemSelected(item);

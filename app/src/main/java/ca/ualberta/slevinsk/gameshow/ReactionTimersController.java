@@ -60,4 +60,8 @@ public class ReactionTimersController {
         return statsList;
     }
 
+    public static void clearData() {
+        getReactionTimerList().clearData();
+        saveReactionTimerList();
+    }
 }

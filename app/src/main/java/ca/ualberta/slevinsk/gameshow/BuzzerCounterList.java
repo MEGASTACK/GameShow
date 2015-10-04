@@ -13,6 +13,21 @@ public class BuzzerCounterList implements Serializable{
 
     private transient ArrayList<Listener> listeners;
 
+    public ArrayList<Listener> getListeners() {
+        return listeners;
+    }
+
+    public void addListener(Listener listener){
+        getListeners().add(listener);
+    }
+
+    private void notifyListeners() {
+        for (Listener listener : getListeners()) {
+            listener.update();
+        }
+    }
+
+
     BuzzerCounterList(){
         twoPlayersGame = new BuzzerCounter(2);
         threePlayersGame = new BuzzerCounter(3);
@@ -33,17 +48,14 @@ public class BuzzerCounterList implements Serializable{
         }
     }
 
-    public ArrayList<Listener> getListeners() {
-        return listeners;
+    public void clearData() {
+        twoPlayersGame = new BuzzerCounter(2);
+        threePlayersGame = new BuzzerCounter(3);
+        fourPlayersGame = new BuzzerCounter(4);
+        notifyListeners();
     }
 
-    public void addListener(Listener listener){
-        getListeners().add(listener);
-    }
-
-    private void notifyListeners(){
-        for (Listener listener:getListeners()){
-            listener.update();
-        }
+    public void clearListeners() {
+        listeners = new ArrayList<>();
     }
 }
