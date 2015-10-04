@@ -16,3 +16,13 @@ limitations under the License.
 
 #Demo Video
 https://www.youtube.com/watch?v=7iWeS3YIpPI
+
+#Citations
+Passing data between Fragment and Activity
+http://stackoverflow.com/questions/14439941/passing-data-between-fragments-to-activity
+
+Email intent
+http://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android-application
+
+Manager/Controller/Model pattern based on (2014 Abram Hindle)
+https://github.com/abramhindle/student-picker

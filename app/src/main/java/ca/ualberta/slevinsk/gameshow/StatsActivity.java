@@ -103,4 +103,3 @@ public class StatsActivity extends AppCompatActivity {
 
 
 }
-//http://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android-application

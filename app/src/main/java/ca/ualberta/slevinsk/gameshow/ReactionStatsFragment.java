@@ -65,17 +65,6 @@ public class ReactionStatsFragment extends ListFragment {
 
     }
 
-
-//    public List<String> generateStatsData(ReactionTimersManager r, Integer n){
-//        List<String> test = new ArrayList<>();
-//        test.add(String.format("Max time: %d", r.max(n)));
-//        test.add(String.format("Min time: %d", r.min(n)));
-//        test.add(String.format("Average time: %d", r.average(n)));
-//        test.add(String.format("Median time: %d", r.median(n)));
-//        return test;
-//    }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
