@@ -16,11 +16,6 @@ public class ReactionTimerList implements Serializable {
 
     //TODO serialid
     protected ArrayList<ReactionTimer> reactionTimers = null;
-
-    public ArrayList<Listener> getListeners() {
-        return listeners;
-    }
-
     protected transient ArrayList<Listener> listeners = null;
 
     public ReactionTimerList() {
@@ -28,6 +23,11 @@ public class ReactionTimerList implements Serializable {
         listeners = new ArrayList<>();
     }
 
+
+
+    public ArrayList<Listener> getListeners() {
+        return listeners;
+    }
     public List<ReactionTimer> getReactionTimers(){
         return reactionTimers;
     }

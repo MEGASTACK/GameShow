@@ -64,12 +64,9 @@ public class BuzzerStatsFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final BuzzerCounterManager buzzerCounterManager = new BuzzerCounterManager(getContext(), "buzz.file");
 
 
-
-
-        final List<String> test = generateStatsData(buzzerCounterManager.getBuzzerCounter(2), 2);
+        final List<String> test = generateStatsData(BuzzerCounterController.getBuzzerCounter(2), 2);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, test);
         setListAdapter(adapter);
 
@@ -92,7 +89,7 @@ public class BuzzerStatsFragment extends ListFragment {
 
                 Toast.makeText(getContext(), String.format("You selected %s", selected), Toast.LENGTH_SHORT).show();
                 test.clear();
-                test.addAll(generateStatsData(buzzerCounterManager.getBuzzerCounter(selected.second), selected.second));
+                test.addAll(generateStatsData(BuzzerCounterController.getBuzzerCounter(selected.second), selected.second));
                 adapter.notifyDataSetChanged();
 
             }

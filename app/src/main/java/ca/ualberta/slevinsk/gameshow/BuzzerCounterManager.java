@@ -5,8 +5,11 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -15,9 +18,19 @@ import java.util.ArrayList;
  * Created by john on 15-09-26.
  */
 public class BuzzerCounterManager {
-    ArrayList<BuzzerCounter> modelData;
 
+
+    public String filename = "filebz";
     private Context context;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
     static private BuzzerCounterManager buzzerCounterManager = null;
 
     public static void initManager(Context context){
@@ -40,47 +53,26 @@ public class BuzzerCounterManager {
         this.context = context;
     }
 
-
-
-    public void initializeStorage() {
-        getModelData().add(new BuzzerCounter(2));
-        getModelData().add(new BuzzerCounter(3));
-        getModelData().add(new BuzzerCounter(4));
-    }
-
     public Type getTypeToken() {
-        return new TypeToken<ArrayList<BuzzerCounter>> () {}.getType();
+        return new TypeToken<BuzzerCounterList> () {}.getType();
+    }
+
+    public void saveBuzzerCounterList(BuzzerCounterList b){
+        saveToFile(b);
+    }
+
+    public BuzzerCounterList loadBuzzerCounterList(){
+        return loadFromFile();
     }
 
 
-    /**
-     * Return the counter for the given mode
-     * TODO this is kind of gross, perhaps deserves its own implementation
-     * @param n total number of players
-     */
-    public BuzzerCounter getBuzzerCounter(Integer n){
-        return getModelData().get(n-2);
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    private void setContext(Context ctx){
-        this.context = ctx;
-    }
-
-    private void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public void saveToFile() {
+    public void saveToFile(BuzzerCounterList b) {
         Gson gson = new Gson();
         try {
             FileOutputStream f = context.openFileOutput(getFilename(), Context.MODE_PRIVATE);
             OutputStreamWriter w = new OutputStreamWriter(f);
 
-            gson.toJson(getModelData(),w);
+            gson.toJson(b,w);
             w.flush();
             f.close();
 
@@ -89,23 +81,26 @@ public class BuzzerCounterManager {
         }
     }
 
-    public ArrayList<BuzzerCounter> getModelData(){
-        return modelData;
+    public BuzzerCounterList loadFromFile() {
+        FileInputStream f = null;
+        Gson gson = new Gson();
+
+        BuzzerCounterList b=null;
+
+        Type ta = getTypeToken();
+        try {
+            f = getContext().openFileInput(getFilename());
+            InputStreamReader is = new InputStreamReader(f);
+            b = gson.fromJson(is, ta);
+            is.close();
+
+
+        } catch (FileNotFoundException e) {
+            return new BuzzerCounterList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return b;
     }
 
-    public void resetModelData() {
-        initializeStorage();
-    }
-
-    public void add(BuzzerCounter timer){
-        modelData.add(timer);
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void clearData(){
-        modelData = new ArrayList<BuzzerCounter>();
-    }
 }

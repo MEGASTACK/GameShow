@@ -23,7 +23,6 @@ public class GameshowButtonsFragment extends Fragment {
     private static final String ARG_PARAM1 = "numberOfPlayers";
 
     private Integer numberOfPlayers;
-    private BuzzerCounterManager buzzerCounterManager;
     private BuzzerCounter buzzerCounter;
 
 
@@ -97,7 +96,7 @@ public class GameshowButtonsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        buzzerCounterManager.saveToFile();
+        BuzzerCounterController.saveBuzzerCounterList();
     }
 
     @Override
@@ -107,7 +106,6 @@ public class GameshowButtonsFragment extends Fragment {
 //        return inflater.inflate(R.layout.fragment_game_show_two_players, container, false);
 
         int layout;
-        buzzerCounterManager = new BuzzerCounterManager(getContext(), "buzz.file");
 
         switch (numberOfPlayers) {
             case 2:
@@ -122,7 +120,7 @@ public class GameshowButtonsFragment extends Fragment {
             default:
                 throw new RuntimeException("Invalid number of players!");
         }
-        buzzerCounter = buzzerCounterManager.getBuzzerCounter(numberOfPlayers);
+        buzzerCounter = BuzzerCounterController.getBuzzerCounter(numberOfPlayers);
         return inflater.inflate(layout, container, false);
 
     }
