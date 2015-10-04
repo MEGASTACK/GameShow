@@ -23,6 +23,8 @@ public class GameshowBuzzerActivity extends AppCompatActivity implements NumberP
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        BuzzerCounterManager.initManager(getApplicationContext());
+
         NumberPickerFragment n = new NumberPickerFragment();
         n.show(getSupportFragmentManager(), "numberPicker");
 

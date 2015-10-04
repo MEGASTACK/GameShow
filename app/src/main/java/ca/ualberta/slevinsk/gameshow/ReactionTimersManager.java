@@ -39,7 +39,7 @@ public class ReactionTimersManager {
 
     static private ReactionTimersManager reactionTimersManager = null;
 
-    static private void initManager(Context context){
+    static public void initManager(Context context){
         if (reactionTimersManager == null){
             if (context == null){
                 throw new RuntimeException("missing context for reactionTimersManager");

@@ -29,6 +29,8 @@ public class ReactionTimerActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.reactionTimerButton);
         handler = new Handler();
         currentTimer = new ReactionTimer();
+
+        ReactionTimersManager.initManager(getApplicationContext());
         timers = ReactionTimersController.getReactionTimerList();
 
     }

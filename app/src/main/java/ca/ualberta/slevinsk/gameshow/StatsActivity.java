@@ -33,6 +33,11 @@ public class StatsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        ReactionTimersManager.initManager(getApplicationContext());
+        BuzzerCounterManager.initManager(getApplicationContext());
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
