@@ -23,7 +23,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Created by john on 15-10-03.
+ * Aggregates a set of Reaction timers.
+ * Performs certain aggregate operations on the stored times:
+ * - max
+ * - min
+ * - average
+ * - median
+ *
+ * of the last n reaction times.
  */
 public class ReactionTimerList implements Serializable {
 
@@ -69,7 +76,7 @@ public class ReactionTimerList implements Serializable {
     /**
      * Compute average of last n times
      * @param n number of instances to consider, or -1 for all
-     * @return the average reaction time
+     * @return the mean reaction time, or 0 if no times have been recorded.
      */
     public long average(Integer n){
         Long sum = 0L;
@@ -88,7 +95,7 @@ public class ReactionTimerList implements Serializable {
     /**
      * Compute the maximum of the last n reaction times
      * @param n number of instances to consider, or -1 for all
-     * @return the average reaction time
+     * @return the maximum reaction time, or 0 if no times have been recorded.
      */
     public Long max(Integer n){
 
@@ -102,7 +109,7 @@ public class ReactionTimerList implements Serializable {
     /**
      * Compute the minimum of the last n reaction times
      * @param n number of instances to consider, or -1 for all
-     * @return the average reaction time
+     * @return the minimum reaction time, or 0 if no times have been recorded.
      */
     public Long min(Integer n){
         try {
@@ -116,7 +123,7 @@ public class ReactionTimerList implements Serializable {
     /**
      * Compute the median of the last n reaction times
      * @param n number of instances to consider, or -1 for all
-     * @return the average reaction time
+     * @return the median reaction time, or 0 if no times have been recorded.
      */
     public Long median(Integer n){
         List<ReactionTimer> l = slice(n);

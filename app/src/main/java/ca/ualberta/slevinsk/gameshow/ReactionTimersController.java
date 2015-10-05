@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by john on 15-10-03.
+ * Class responsible for controlling the ReactionTimer game.
+ *
  */
 public class ReactionTimersController {
     private static ReactionTimerList reactionTimerList = null;
@@ -56,13 +57,21 @@ public class ReactionTimersController {
         getReactionTimerList().addReactionTimer(r);
     }
 
-
+    /**
+     * Starts a new Reaction Timer.
+     */
     static public void startNewTimer(){
         currentTimer = new ReactionTimer();
         currentTimer.randomizeTargetTime();
         currentTimer.start();
     }
 
+    /**
+     * Stops the current reaction timer. If the time is valid, the result is saved
+     * in the reactionTimerList.
+     * @return Long elapsed time (in millis)
+     * @throws RuntimeException if timer has not been started.
+     */
     static public Long stopTimer(){
         if (currentTimer == null){
             throw new RuntimeException("Error: Timer was not started!");
@@ -77,6 +86,11 @@ public class ReactionTimersController {
         }
     }
 
+    /**
+     * Returns the current target reaction time
+     * @return Long target time (millis)
+     * @throws RuntimeException if timer has not been started.
+     */
     static public Long getCurrentTargetTime(){
         if (currentTimer == null){
             throw new RuntimeException("Error: Timer was not started!");
@@ -85,6 +99,11 @@ public class ReactionTimersController {
         }
     }
 
+    /**
+     * Generates stats data to hook into a ListView's ArrayAdapter.
+     * @param n number of ReactionTimer instances to consider.
+     * @return List of Strings of each line to be displayed.
+     */
     static public List<String> generateStatsData(Integer n){
         List<String> statsList = new ArrayList<>();
         statsList.add(String.format("Max time: %d", getMax(n)));
@@ -99,7 +118,10 @@ public class ReactionTimersController {
         saveReactionTimerList();
     }
 
-
+    /**
+     * Generates email data to be sent, based on Reaction Time data.
+     * @return A String containing the body of the email.
+     */
     public static String generateEmailData(){
         StringBuilder b = new StringBuilder();
 

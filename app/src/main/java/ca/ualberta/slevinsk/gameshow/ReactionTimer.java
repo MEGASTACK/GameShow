@@ -18,7 +18,9 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * Created by john on 15-09-19.
+ * Reaction Timer implementation.
+ * Can be started, stopped, queried for how much time has elapsed.
+ * Also responsible for randomly choosing a target reaction time, stored internally.
  */
 public class ReactionTimer implements Comparable<ReactionTimer> {
     private Long startDate;
@@ -52,6 +54,10 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
         this.targetTime = targetTime;
     }
 
+    /**
+     * Picks a random amount of target time for the reaction,
+     * between minTargetMillis and maxTargetMillis
+     */
     public void randomizeTargetTime() {
         Random r = new Random();
 
@@ -66,19 +72,27 @@ public class ReactionTimer implements Comparable<ReactionTimer> {
         randomizeTargetTime();
     }
 
+    /**
+     * Starts the reaction timer.
+     * @return the Long representation of the start date (in milliseconds)
+     */
     public Long start(){
         setStartDate(new Date().getTime());
         return getStartDate();
     }
 
+    /**
+     * Stops the reaction timer.
+     * @return the Long representation of the end date (in milliseconds)
+     */
     public Long stop(){
         setEndDate(new Date().getTime());
         return getEndDate();
     }
 
     /**
-     *
-     * @return the amount of time that has passed, in milliseconds
+     * After the timer has stopped, determine how much time has elapsed
+     * @return the Long amount of time that has passed, in milliseconds
      */
     private Long getElapsedTime(){
         return Math.max(getEndDate() - getStartDate(), 0);

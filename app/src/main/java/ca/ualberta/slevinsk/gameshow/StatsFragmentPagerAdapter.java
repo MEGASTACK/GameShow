@@ -19,6 +19,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+/**
+ *
+ */
 public class StatsFragmentPagerAdapter extends FragmentPagerAdapter {
     private String tabTitles[] = new String[] { "Reaction Times", "Gameshow Buzzer" };
     final int PAGE_COUNT = tabTitles.length;

@@ -17,6 +17,13 @@ import android.support.v4.util.Pair;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+
+/**
+ * A Pair, with overridden toString that returns the first element's toString.
+ * @param <K> Type of first member of Pair
+ * @param <V> Type of second member of Pair
+ */
 public class SpecialPair<K, V> extends Pair<K, V> {
     /**
      * Constructor for a Pair.
