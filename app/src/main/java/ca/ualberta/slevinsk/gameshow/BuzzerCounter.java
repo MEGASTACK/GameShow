@@ -1,4 +1,4 @@
-/**
+package ca.ualberta.slevinsk.gameshow; /**
  * Copyright 2015 John Slevinsky
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-package ca.ualberta.slevinsk.gameshow;
-
-import android.os.Bundle;
-
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by john on 15-09-26.
- */
+
+
 public class BuzzerCounter {
     public Map<Integer, Integer> getCounts() {
         return counts;
