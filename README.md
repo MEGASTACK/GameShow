@@ -26,3 +26,6 @@ http://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android
 
 Manager/Controller/Model pattern based on (2014 Abram Hindle)
 https://github.com/abramhindle/student-picker
+
+This app uses Google GSON to persist object data
+https://github.com/google/gson

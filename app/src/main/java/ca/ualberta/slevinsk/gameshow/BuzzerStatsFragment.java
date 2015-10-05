@@ -29,10 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * Fragment to display gameshow buzzer statistics
+ */
 public class BuzzerStatsFragment extends ListFragment {
-
-    private static final String ARG_PAGE = "ARG_PAGE";
 
     public static BuzzerStatsFragment newInstance( ) {
         BuzzerStatsFragment fragment = new BuzzerStatsFragment();
@@ -48,7 +48,6 @@ public class BuzzerStatsFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
 

@@ -32,9 +32,8 @@ import java.util.NoSuchElementException;
  *
  * of the last n reaction times.
  */
-public class ReactionTimerList implements Serializable {
+public class ReactionTimerList {
 
-    //TODO serialid
     protected ArrayList<ReactionTimer> reactionTimers = null;
     protected transient ArrayList<Listener> listeners = null;
 

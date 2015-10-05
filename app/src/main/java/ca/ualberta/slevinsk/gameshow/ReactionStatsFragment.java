@@ -28,20 +28,9 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ReactionStatsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ReactionStatsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment to display reaction time stats
  */
 public class ReactionStatsFragment extends ListFragment {
-
-    private static final String ARG_PAGE = "ARG_PAGE";
-    private int mPage;
-
-//    private OnFragmentInteractionListener mListener;
-
 
     public static ReactionStatsFragment newInstance( ) {
         ReactionStatsFragment fragment = new ReactionStatsFragment();
@@ -57,12 +46,6 @@ public class ReactionStatsFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mPage = getArguments().getInt(ARG_PAGE);
-        }
-
-
-
     }
 
     @Override

@@ -29,17 +29,13 @@ import android.widget.Toast;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link GameshowButtonsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link GameshowButtonsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment that manages gameshow buzzer buttons.
+ *
+ * Loads a layout dependent on the number of players in the game.
  */
 public class GameshowButtonsFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "numberOfPlayers";
-
     private Integer numberOfPlayers;
 
 
@@ -85,7 +81,6 @@ public class GameshowButtonsFragment extends Fragment {
         BuzzerButtonListener(int numberOfPlayers, int playerId){
             this.playerId = playerId;
             this.numberOfPlayers = numberOfPlayers;
-//            getBuzzerCounterContainer().addListener(this);
         }
 
         @Override

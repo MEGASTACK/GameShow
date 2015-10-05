@@ -22,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Contains BuzzerCounters for 2 player, 3 player, and 4 player GameShow game.
  */
-public class BuzzerCounterContainer implements Serializable{
+public class BuzzerCounterContainer{
     protected BuzzerCounter twoPlayersGame;
     protected BuzzerCounter threePlayersGame;
     protected BuzzerCounter fourPlayersGame;
