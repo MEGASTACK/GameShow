@@ -20,7 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by john on 15-10-03.
+ * Class responsible for controlling the Gameshow Buzzer game.
+ *
+ * Records new buzzes and adds them to the BuzzerCounterContainer, if valid.
+ *
+ * Generates data for statistical display.
  */
 public class BuzzerCounterController {
     private static BuzzerCounterContainer buzzerCounterContainer = null;
@@ -50,6 +54,11 @@ public class BuzzerCounterController {
         saveBuzzerCounterList();
     }
 
+    /**
+     * Generates stats data to hook into a ListView's ArrayAdapter.
+     * @param n the game to consider, ie an n player game.
+     * @return List of Strings of each line to be displayed.
+     */
     public static  List<String> generateStatsData(Integer n){
         List<String> statsData = new ArrayList<>();
 
@@ -59,6 +68,10 @@ public class BuzzerCounterController {
         return statsData;
     }
 
+    /**
+     * Generates email data to be sent, based on Buzzer Count data.
+     * @return A String containing the body of the email.
+     */
     public static String generateEmailData(){
         StringBuilder b = new StringBuilder();
 

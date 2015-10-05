@@ -20,6 +20,10 @@ import java.util.List;
 /**
  * Class responsible for controlling the ReactionTimer game.
  *
+ * Records new reaction times and adds them to the ReactionTimerList, if valid.
+ *
+ * Provides access to aggregate data, and also
+ * generates data for statistical display.
  */
 public class ReactionTimersController {
     private static ReactionTimerList reactionTimerList = null;

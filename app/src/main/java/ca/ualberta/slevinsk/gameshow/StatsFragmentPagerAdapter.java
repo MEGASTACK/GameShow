@@ -20,7 +20,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- *
+ * Adapter to allow the insertion of Fragments into their respective
+ * tabs in the StatsActivity.
  */
 public class StatsFragmentPagerAdapter extends FragmentPagerAdapter {
     private String tabTitles[] = new String[] { "Reaction Times", "Gameshow Buzzer" };

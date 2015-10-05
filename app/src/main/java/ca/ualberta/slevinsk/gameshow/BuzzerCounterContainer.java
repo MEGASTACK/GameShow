@@ -18,6 +18,10 @@ import java.util.ArrayList;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * Contains BuzzerCounters for 2 player, 3 player, and 4 player GameShow game.
+ */
 public class BuzzerCounterContainer implements Serializable{
     protected BuzzerCounter twoPlayersGame;
     protected BuzzerCounter threePlayersGame;
@@ -63,6 +67,11 @@ public class BuzzerCounterContainer implements Serializable{
         }
     }
 
+    /**
+     * Increment a player's count in a certain game.
+     * @param playerCount players in the game
+     * @param player the player whose count should be incremented
+     */
     public void incrementCounter(Integer playerCount, Integer player){
         getBuzzerCounter(playerCount).increment(player);
     }

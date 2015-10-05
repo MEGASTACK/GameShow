@@ -18,7 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
+/**
+ * Simulates a set of gameshow buzzers for a certain number of players
+ */
 public class BuzzerCounter {
     public Map<Integer, Integer> getCounts() {
         return counts;
@@ -28,6 +30,11 @@ public class BuzzerCounter {
     private static final Integer MIN_PLAYERS = 2;
     private static final Integer MAX_PLAYERS = 4;
 
+    /**
+     * Create a BuzzerCounter with "players" buzzers
+     * @param players the number of buzzers
+     * @throws RuntimeException if players is not in [MIN_PLAYERS, MAX_PLAYERS]
+     */
     public BuzzerCounter(Integer players) {
 
         counts = new HashMap<>();

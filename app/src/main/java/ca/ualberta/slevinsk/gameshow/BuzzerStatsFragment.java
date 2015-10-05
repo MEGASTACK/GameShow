@@ -61,10 +61,6 @@ public class BuzzerStatsFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        final List<String> test = BuzzerCounterController.generateStatsData(2);
-
         final List<String> test = new ArrayList<>();
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, test);
         setListAdapter(adapter);

@@ -1,18 +1,4 @@
 package ca.ualberta.slevinsk.gameshow;
-
-import android.content.Context;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-
 /**
  * Copyright 2015 John Slevinsky
  *
@@ -27,6 +13,25 @@ import java.lang.reflect.Type;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+
+
+/**
+ * Responsible for persistance of the BuzzerCounterContainer.
+ *
+ * Can save to disk and load from disk.
  */
 public class BuzzerCounterManager {
 

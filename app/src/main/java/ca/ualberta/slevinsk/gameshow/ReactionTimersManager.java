@@ -32,7 +32,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by john on 15-09-24.
+ * Responsible for persistance of the ReactionTimerList.
+ *
+ * Can save to disk and load from disk.
  */
 public class ReactionTimersManager {
 
