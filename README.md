@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 #Demo Video
-https://www.youtube.com/edit?o=U&video_id=SpEDwbcJZO8
+https://www.youtube.com/watch?v=SpEDwbcJZO8
 
 #Citations
 Passing data between Fragment and Activity
